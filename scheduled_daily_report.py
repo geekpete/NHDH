@@ -1,5 +1,4 @@
 from NHDH.modules.daily import Daily
-from NHDH.modules.fetch import Fetch
 from NHDH.modules.trails import Trails
 from NHDH.modules.py_email import *
 from NHDH.modules.cache import cache
@@ -10,6 +9,8 @@ from flask import Blueprint, request, redirect, url_for,  \
      render_template, flash, send_from_directory, send_file, Flask
 from math import isnan
 import os,sys,locale,yaml
+from NHDH.modules.fetch import *
+from NHDH import app
 
 #app configuration items
 app = Flask(__name__)
