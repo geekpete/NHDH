@@ -54,6 +54,15 @@ def item(filename):
     return render_template('itemreport.html',
                            idf=idf,filename=filename)
 
+@main.route('/itemgraph/<filename>')
+@login_required
+#@cache.cached(timeout=cache_timeout)
+def itemgraph(filename):
+    daily = Daily()
+    idf = daily.month_by_month_by_tag(filename, 'OLAppGroup','Admin')
+    return render_template('itembreakdown.html',
+                           idf=idf,filename=filename)
+
 @main.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_file():
@@ -85,7 +94,7 @@ def show_trails():
 
 
 @main.route('/fetch')
-@login_required
+#@login_required
 def fetch_zip():
     ff = Fetch()
     ff.fetch()
@@ -106,7 +115,7 @@ def serve_csv(filename):
                      mimetype='text/csv')
 
 @main.route('/mail/<filename>')
-@login_required
+#@login_required
 def serve_mail(filename):
     daily = Daily()
     mdf = daily.month_by_day(filename)
@@ -143,7 +152,7 @@ def item_mail(filename):
         return redirect('/')
 
 @main.route('/itemcsv/<filename>')
-@login_required
+#@login_required
 @cache.cached(timeout=cache_timeout)
 def serve_itemcsv(filename):
     mdf = month_by_owner_item(filename)
