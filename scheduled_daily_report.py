@@ -23,13 +23,14 @@ app.config['CSV_FOLDER'] = os.path.abspath('NHDH/csv/')
 configStr = open(app.config['CONFIG_FILE'], 'r')
 app.config['CONFIG'] = yaml.load(configStr)
 
-try:
+#try:
     # fetch latest data
-    ff = Fetch()
-    ff.fetch(scheduler=True)
-except:
-    print >> sys.stderr, "ERROR: failed to download file from S3 bucket"
-    sys.exit(1)
+ff = Fetch()
+ff.fetch(scheduler=True)
+#except:
+#    print >> sys.stderr, "ERROR: failed to download file from S3 bucket"
+#    sys.exit(1)
+sys.exit(0)
 
 # Determine the current date's filename to run the report on
 dt = datetime.now()
