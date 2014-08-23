@@ -94,20 +94,12 @@ def show_trails():
 
 
 @main.route('/fetch')
-#@login_required
+@login_required
 def fetch_zip():
     ff = Fetch()
     ff.fetch()
     #return ''
     return redirect('/')
-
-
-@main.route('/cronfetch')
-#@login_required
-def cron_fetch_zip():
-    ff = Fetch()
-    ff.fetch()
-    return ''
 
 @main.route('/csv/<filename>')
 @login_required
@@ -123,7 +115,7 @@ def serve_csv(filename):
                      mimetype='text/csv')
 
 @main.route('/mail/<filename>')
-#@login_required
+@login_required
 def serve_mail(filename):
     daily = Daily()
     mdf = daily.month_by_day(filename)
@@ -160,7 +152,7 @@ def item_mail(filename):
         return redirect('/')
 
 @main.route('/itemcsv/<filename>')
-#@login_required
+@login_required
 @cache.cached(timeout=cache_timeout)
 def serve_itemcsv(filename):
     mdf = month_by_owner_item(filename)
