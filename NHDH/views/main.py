@@ -104,7 +104,7 @@ def fetch_zip():
 
 @main.route('/cronfetch')
 #@login_required
-def fetch_zip():
+def cron_fetch_zip():
     ff = Fetch()
     ff.fetch()
     return ''
