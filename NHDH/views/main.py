@@ -101,6 +101,14 @@ def fetch_zip():
     #return ''
     return redirect('/')
 
+
+@main.route('/cronfetch')
+#@login_required
+def fetch_zip():
+    ff = Fetch()
+    ff.fetch()
+    return ''
+
 @main.route('/csv/<filename>')
 @login_required
 @cache.cached(timeout=cache_timeout)
