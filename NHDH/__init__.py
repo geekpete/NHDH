@@ -26,29 +26,30 @@ locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.abspath('NHDH/nhdh.sqlite')
 db = SQLAlchemy(app)
-app.secret_key = 'sdakjkdsjksjkjaskjdkaskjdkjkjdkjkjkjdksjkajlkjaskljdkljklsdj'
+app.secret_key = 'sdakjk353453453456346346346346326346460103939999kjkjkjdksjkajlkjaskljdkljklsdj'
 app.config['UPLOAD_FOLDER'] = os.path.abspath('NHDH/csv')
 app.config['CONFIG_FILE'] = os.path.abspath('NHDH/conf/config.yml')
 app.config['ALLOWED_EXTENSIONS'] = set(['zip'])
 app.config['CSV_FOLDER'] = os.path.abspath('NHDH/csv/')
 
 #Identity
-from flask.ext.principal import Principal, PermissionDenied
-principals = Principal(app, skip_static=True)
+#from flask.ext.principal import Principal, PermissionDenied
+#principals = Principal(app, skip_static=True)
 
 #flask-login
-from flask.ext.login import LoginManager
+#from flask.ext.login import LoginManager
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+#login_manager = LoginManager()
+#login_manager.init_app(app)
 
-login_manager.login_view = 'login'
-@login_manager.user_loader
-def load_user(id):
-    return User.User.query.get(int(id))
+#login_manager.login_view = 'login'
+#@login_manager.user_loader
+#def load_user(id):
+#    return User.User.query.get(int(id))
 
-from flask import Flask,session, request, flash, url_for, redirect, render_template, abort ,g
-from flask.ext.login import login_user , logout_user , current_user , login_required
+#from flask import Flask,session, request, flash, url_for, redirect, render_template, abort ,g
+from flask import request, flash, url_for, redirect, render_template, abort ,g
+#from flask.ext.login import login_user , logout_user , current_user , login_required
 
 
 @app.route('/login',methods=['GET','POST'])
@@ -73,14 +74,14 @@ def logout():
     logout_user()
     return redirect('/')
 
-@app.before_request
-def before_request():
-    g.user = current_user
+#@app.before_request
+#def before_request():
+#    g.user = current_user
 
-@app.errorhandler(PermissionDenied)
-def handle_permission_error(error):
+#@app.errorhandler(PermissionDenied)
+#def handle_permission_error(error):
     #TODO Log permission error
-    return render_template('403.html'), 403
+#    return render_template('403.html'), 403
 
 @app.errorhandler(404)
 def not_found(error):
@@ -93,7 +94,7 @@ app.config['CONFIG'] = yaml.load(configStr)
 #cache init here
 cache.init_app(app, config={'CACHE_TYPE': 'simple'})
 
-from NHDH.models import User
+#from NHDH.models import User
 
 #import views here
 from NHDH.views.main import main as main
