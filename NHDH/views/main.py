@@ -17,7 +17,7 @@ main  = Blueprint('main', __name__)
 cache_timeout = int(app.config['CONFIG']['cache']['timeout'])
 
 @main.route('/')
-@login_required
+#@login_required
 def list_reports():
     os.chdir(app.config['UPLOAD_FOLDER'])
     csv = list()
@@ -28,7 +28,7 @@ def list_reports():
 
 
 @main.route('/dailyreport/<filename>')
-@login_required
+#@login_required
 #@cache.cached(timeout=cache_timeout)
 def daily(filename):
     daily = Daily()
@@ -37,7 +37,7 @@ def daily(filename):
                            mdf=mdf,filename=filename,isnan=isnan)
 
 @main.route('/dailygraph/<filename>')
-@login_required
+#@login_required
 @cache.cached(timeout=cache_timeout)
 def dailygraph(filename):
     daily = Daily()
@@ -46,7 +46,7 @@ def dailygraph(filename):
                            mdf=mdf)
 
 @main.route('/itemreport/<filename>')
-@login_required
+#@login_required
 #@cache.cached(timeout=cache_timeout)
 def item(filename):
     daily = Daily()
@@ -55,7 +55,7 @@ def item(filename):
                            idf=idf,filename=filename)
 
 @main.route('/itemgraph/<filename>')
-@login_required
+#@login_required
 #@cache.cached(timeout=cache_timeout)
 def itemgraph(filename):
     daily = Daily()
@@ -64,7 +64,7 @@ def itemgraph(filename):
                            idf=idf,filename=filename)
 
 @main.route('/upload', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
@@ -79,7 +79,7 @@ def upload_file():
     return render_template('upload.html')
 
 @main.route('/uploads/<filename>')
-@login_required
+#@login_required
 def unzip_file(filename):
     unzip(os.path.join(app.config['UPLOAD_FOLDER'],filename),app.config['UPLOAD_FOLDER'])
     #return ''
@@ -87,14 +87,14 @@ def unzip_file(filename):
                                     filename=filename))
 
 @main.route('/trail')
-@login_required
+#@login_required
 def show_trails():
     trails = Trails()
     trails.show_trails()
 
 
 @main.route('/fetch')
-@login_required
+#@login_required
 def fetch_zip():
     ff = Fetch()
     ff.fetch()
@@ -102,7 +102,7 @@ def fetch_zip():
     return redirect('/')
 
 @main.route('/csv/<filename>')
-@login_required
+#@login_required
 @cache.cached(timeout=cache_timeout)
 def serve_csv(filename):
     daily = Daily()
@@ -115,7 +115,7 @@ def serve_csv(filename):
                      mimetype='text/csv')
 
 @main.route('/mail/<filename>')
-@login_required
+#@login_required
 def serve_mail(filename):
     daily = Daily()
     mdf = daily.month_by_day(filename)
@@ -134,7 +134,7 @@ def serve_mail(filename):
 
 
 @main.route('/itemmail/<filename>')
-@login_required
+#@login_required
 def item_mail(filename):
     daily = Daily()
     idf = daily.month_by_itemdescription(filename)
@@ -152,7 +152,7 @@ def item_mail(filename):
         return redirect('/')
 
 @main.route('/itemcsv/<filename>')
-@login_required
+#@login_required
 @cache.cached(timeout=cache_timeout)
 def serve_itemcsv(filename):
     mdf = month_by_owner_item(filename)
